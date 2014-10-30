@@ -4,9 +4,15 @@ A JavaScript implementation of W3C DOM for Node.js, Rhino and the browser. Fully
 compatible with `W3C DOM level2`; and some compatible with `level3`. Supports
 `DOMParser` and `XMLSerializer` interface such as in browser.
 
+## hudl/xmldom fork modifications
+- Serialization formatting
+  - Change self-closing tags (e.g., `<node />`) to include space before `/` to match Visual Studio behavior. This space is optional by the XML spec, but removing it creates excess git diff changes when editing Visual Studio project files.
+  - Adding newline after `<?xml ... ?>` node (keep it on its own line).
+- Package named changed to `hudl-xmldom` for private registry publishing purposes.
+
 Install:
 -------
->npm install xmldom
+>npm install hudl-xmldom
 
 Example:
 ====
@@ -38,7 +44,7 @@ API Reference
 	```javascript
 	//added the options argument
 	new DOMParser(options)
-	
+
 	//errorHandler is supported
 	new DOMParser({
 		/**
@@ -53,11 +59,11 @@ API Reference
 		//only callback model
 		//errorHandler:function(level,msg){console.log(level,msg)}
 	})
-		
+
 	```
 
  * [XMLSerializer](https://developer.mozilla.org/en/XMLSerializer)
- 
+
 	```javascript
 	serializeToString(node)
 	```
@@ -65,12 +71,12 @@ DOM level2 method and attribute:
 ------
 
  * [Node](http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-1950641247)
-	
+
 		attribute:
 			nodeValue|prefix
 		readonly attribute:
 			nodeName|nodeType|parentNode|childNodes|firstChild|lastChild|previousSibling|nextSibling|attributes|ownerDocument|namespaceURI|localName
-		method:	
+		method:
 			insertBefore(newChild, refChild)
 			replaceChild(newChild, oldChild)
 			removeChild(oldChild)
@@ -82,14 +88,14 @@ DOM level2 method and attribute:
 			hasAttributes()
 
  * [DOMImplementation](http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-102161490)
-		
+
 		method:
 			hasFeature(feature, version)
 			createDocumentType(qualifiedName, publicId, systemId)
 			createDocument(namespaceURI, qualifiedName, doctype)
 
  * [Document](http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#i-Document) : Node
-		
+
 		readonly attribute:
 			doctype|implementation|documentElement
 		method:
@@ -110,7 +116,7 @@ DOM level2 method and attribute:
 
  * [DocumentFragment](http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-B63ED1A3) : Node
  * [Element](http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-745549614) : Node
-		
+
 		readonly attribute:
 			tagName
 		method:
@@ -131,19 +137,19 @@ DOM level2 method and attribute:
 			hasAttributeNS(namespaceURI, localName)
 
  * [Attr](http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-637646024) : Node
-	
+
 		attribute:
 			value
 		readonly attribute:
 			name|specified|ownerElement
 
  * [NodeList](http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-536297177)
-		
+
 		readonly attribute:
 			length
 		method:
 			item(index)
-	
+
  * [NamedNodeMap](http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-1780488922)
 
 		readonly attribute:
@@ -156,52 +162,52 @@ DOM level2 method and attribute:
 			getNamedItemNS(namespaceURI, localName)
 			setNamedItemNS(arg)
 			removeNamedItemNS(namespaceURI, localName)
-		
+
  * [CharacterData](http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-FF21A306) : Node
-	
+
 		method:
 			substringData(offset, count)
 			appendData(arg)
 			insertData(offset, arg)
 			deleteData(offset, count)
 			replaceData(offset, count, arg)
-		
+
  * [Text](http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-1312295772) : CharacterData
-	
+
 		method:
 			splitText(offset)
-			
+
  * [CDATASection](http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-667469212)
  * [Comment](http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-1728279322) : CharacterData
-	
+
  * [DocumentType](http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/core.html#ID-412266927)
-	
+
 		readonly attribute:
 			name|entities|notations|publicId|systemId|internalSubset
-			
+
  * Notation : Node
-	
+
 		readonly attribute:
 			publicId|systemId
-			
+
  * Entity : Node
-	
+
 		readonly attribute:
 			publicId|systemId|notationName
-			
- * EntityReference : Node 
- * ProcessingInstruction : Node 
-	
+
+ * EntityReference : Node
+ * ProcessingInstruction : Node
+
 		attribute:
 			data
 		readonly attribute:
 			target
-		
+
 DOM level 3 support:
 -----
 
  * [Node](http://www.w3.org/TR/DOM-Level-3-Core/core.html#Node3-textContent)
-		
+
 		attribute:
 			textContent
 		method:
@@ -210,8 +216,8 @@ DOM level 3 support:
 
 DOM extension by xmldom
 ---
- * [Node] Source position extension; 
-		
+ * [Node] Source position extension;
+
 		attribute:
 			//Numbered starting from '1'
 			lineNumber

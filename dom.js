@@ -5,6 +5,9 @@
  * @see http://www.w3.org/TR/2000/REC-DOM-Level-2-Core-20001113/ecma-script-binding.html
  */
 
+// Get system end-of-line character, if possible
+var EOL = typeof process !== 'undefined' ? require('os').EOL : '\n';
+
 function copy(src,dest){
 	for(var p in src){
 		dest[p] = src[p];
@@ -977,7 +980,7 @@ function serializeToString(node,buf){
 		}
 		return;
 	case PROCESSING_INSTRUCTION_NODE:
-		return buf.push( "<?",node.target," ",node.data,"?>");
+		return buf.push( "<?",node.target," ",node.data,"?>", EOL);
 	case ENTITY_REFERENCE_NODE:
 		return buf.push( '&',node.nodeName,';');
 	//case ENTITY_NODE:
