@@ -940,7 +940,7 @@ function serializeToString(node,buf){
 			}
 			buf.push('</',nodeName,'>');
 		}else{
-			buf.push('/>');
+			buf.push(' />');
 		}
 		return;
 	case DOCUMENT_NODE:
